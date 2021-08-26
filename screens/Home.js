@@ -8,8 +8,9 @@ import {
     TouchableOpacity
 } from "react-native"
 import { COLORS, SIZES, FONTS, icons, images } from "../constants"
+import { AntDesign } from '@expo/vector-icons';
 
-const Home = () => {
+const Home = ({ propFullname, propNavigation }) => {
 
     const featuresData = [
         {
@@ -17,14 +18,14 @@ const Home = () => {
             icon: icons.reload,
             color: COLORS.purple,
             backgroundColor: COLORS.lightpurple,
-            description: "Top Up"
+            description: "Top dau"
         },
         {
             id: 2,
             icon: icons.send,
             color: COLORS.yellow,
             backgroundColor: COLORS.lightyellow,
-            description: "Transfer"
+            description: "Chuyen tien"
         },
         {
             id: 3,
@@ -38,35 +39,14 @@ const Home = () => {
             icon: icons.wallet,
             color: COLORS.red,
             backgroundColor: COLORS.lightRed,
-            description: "Wallet"
+            description: "Vi dien tu"
         },
         {
             id: 5,
             icon: icons.bill,
             color: COLORS.yellow,
             backgroundColor: COLORS.lightyellow,
-            description: "Bill"
-        },
-        {
-            id: 6,
-            icon: icons.game,
-            color: COLORS.primary,
-            backgroundColor: COLORS.lightGreen,
-            description: "Games"
-        },
-        {
-            id: 7,
-            icon: icons.phone,
-            color: COLORS.red,
-            backgroundColor: COLORS.lightRed,
-            description: "Mobile Prepaid"
-        },
-        {
-            id: 8,
-            icon: icons.more,
-            color: COLORS.purple,
-            backgroundColor: COLORS.lightpurple,
-            description: "More"
+            description: "Phieu thanh toan"
         },
     ]
 
@@ -74,50 +54,27 @@ const Home = () => {
         {
             id: 1,
             img: images.promoBanner,
-            title: "Bonus Cashback1",
-            description: "Don't miss it. Grab it now!"
+            title: "Duoc tra lai tien 1",
+            description: "Dung bo lo co hoi!"
         },
         {
             id: 2,
             img: images.promoBanner,
-            title: "Bonus Cashback2",
-            description: "Don't miss it. Grab it now!"
-        },
-        {
-            id: 3,
-            img: images.promoBanner,
-            title: "Bonus Cashback3",
-            description: "Don't miss it. Grab it now!"
-        },
-        {
-            id: 4,
-            img: images.promoBanner,
-            title: "Bonus Cashback4",
-            description: "Don't miss it. Grab it now!"
+            title: "Duoc tra lai tien 2",
+            description: "Dung bo lo co hoi!"
         },
     ]
-
-    const [features, setFeatures] = React.useState(featuresData)
-    const [specialPromos, setSpecialPromos] = React.useState(specialPromoData)
 
     function renderHeader() {
         return (
             <View style={{ flexDirection: 'row', marginVertical: SIZES.padding * 2 }}>
                 <View style={{ flex: 1 }}>
                     <Text style={{ ...FONTS.h1 }}>Hello!</Text>
-                    <Text style={{ ...FONTS.body2, color: COLORS.gray }}>ByProgrammers</Text>
+                    <Text style={{ ...FONTS.body2, color: COLORS.gray }}>{propFullname}</Text>
                 </View>
 
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity
-                        style={{
-                            height: 40,
-                            width: 40,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            backgroundColor: COLORS.lightGray
-                        }}
-                    >
+                <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+                    <View>
                         <Image
                             source={icons.bell}
                             style={{
@@ -138,6 +95,19 @@ const Home = () => {
                             }}
                         >
                         </View>
+                    </View>
+                    <TouchableOpacity
+                        style={{
+                            height: 40,
+                            width: 40,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: COLORS.lightGray,
+                            marginLeft: 28,
+                        }}
+                        onPress={() => { propNavigation.goBack() }}
+                    >
+                        <AntDesign name="logout" size={24} color="black" />
                     </TouchableOpacity>
                 </View>
 
@@ -170,14 +140,14 @@ const Home = () => {
 
         const Header = () => (
             <View style={{ marginBottom: SIZES.padding * 2 }}>
-                <Text style={{ ...FONTS.h3 }}>Features</Text>
+                <Text style={{ ...FONTS.h3 }}>Dac diem</Text>
             </View>
         )
 
         const renderItem = ({ item }) => (
             <TouchableOpacity
                 style={{ marginBottom: SIZES.padding * 2, width: 60, alignItems: 'center' }}
-                onPress={() => console.log(item.description)}
+                onPress={() => alert(item.description)}
             >
                 <View
                     style={{
@@ -207,7 +177,7 @@ const Home = () => {
         return (
             <FlatList
                 ListHeaderComponent={Header}
-                data={features}
+                data={featuresData}
                 numColumns={4}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 keyExtractor={item => `${item.id}`}
@@ -236,12 +206,12 @@ const Home = () => {
                 }}
             >
                 <View style={{ flex: 1 }}>
-                    <Text style={{ ...FONTS.h3 }}>Special Promos</Text>
+                    <Text style={{ ...FONTS.h3 }}>Khuyen mai dac biet</Text>
                 </View>
                 <TouchableOpacity
-                    onPress={() => console.log("View All")}
+                    onPress={() => alert("Xem het")}
                 >
-                    <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>View All</Text>
+                    <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>Xem het</Text>
                 </TouchableOpacity>
             </View>
 
@@ -253,7 +223,7 @@ const Home = () => {
                     marginVertical: SIZES.base,
                     width: SIZES.width / 2.5
                 }}
-                onPress={() => console.log(item.title)}
+                onPress={() => alert(item.title)}
             >
                 <View
                     style={{
@@ -295,7 +265,7 @@ const Home = () => {
                 contentContainerStyle={{ paddingHorizontal: SIZES.padding * 3 }}
                 numColumns={2}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
-                data={specialPromos}
+                data={specialPromoData}
                 keyExtractor={item => `${item.id}`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}

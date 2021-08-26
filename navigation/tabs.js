@@ -16,7 +16,7 @@ import { COLORS, icons } from "../constants"
 
 const Tab = createBottomTabNavigator()
 
-const TabBarCustomButton = ({ accessibilityLabel, accessibilityState, children, onPress }) => {
+const TabBarCustomButton = ({ accessibilityState, children, onPress }) => {
 
     var isSelected = accessibilityState.selected
 
@@ -105,7 +105,8 @@ const CustomTabBar = (props) => {
     }
 }
 
-const Tabs = () => {
+const Tabs = ({ route, navigation }) => {
+    const { navFullname } = route.params
     return (
         <Tab.Navigator
             tabBarOptions={{
@@ -127,7 +128,7 @@ const Tabs = () => {
         >
             <Tab.Screen
                 name="Home"
-                component={Home}
+                children={() => <Home propFullname={navFullname} propNavigation={navigation} />}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -171,7 +172,7 @@ const Tabs = () => {
             />
             <Tab.Screen
                 name="User"
-                component={Home}
+                children={() => <Home propFullname={navFullname} propNavigation={navigation} />}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image

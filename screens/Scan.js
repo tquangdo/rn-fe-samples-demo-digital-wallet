@@ -13,19 +13,19 @@ const Scan = ({ navigation }) => {
 
     React.useEffect(() => {
         (async () => {
-          const { status } = await Camera.requestPermissionsAsync();
-          setHasPermission(status === 'granted');
+            const { status } = await Camera.requestPermissionsAsync();
+            setHasPermission(status === 'granted');
         })();
-      }, []);
+    }, []);
 
     if (hasPermission === null) {
-    return <View />;
+        return <View />;
     }
     if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+        return <Text>No access to camera</Text>;
     }
-    
-    
+
+
 
     function renderHeader() {
         return (
@@ -61,7 +61,7 @@ const Scan = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => console.log("Info")}
+                    onPress={() => alert("Info")}
                 >
                     <Image
                         source={icons.info}
@@ -128,7 +128,7 @@ const Scan = ({ navigation }) => {
                             flexDirection: 'row',
                             alignItems: 'center'
                         }}
-                        onPress={() => console.log("Phone Number")}
+                        onPress={() => alert("Phone Number")}
                     >
                         <View
                             style={{
@@ -159,7 +159,7 @@ const Scan = ({ navigation }) => {
                             alignItems: 'center',
                             marginLeft: SIZES.padding * 2
                         }}
-                        onPress={() => console.log("Barcode")}
+                        onPress={() => alert("Barcode")}
                     >
                         <View
                             style={{
@@ -189,7 +189,7 @@ const Scan = ({ navigation }) => {
     }
 
     function onBarCodeRead(result) {
-        console.log(result.data)
+        alert(result.data)
     }
 
     return (

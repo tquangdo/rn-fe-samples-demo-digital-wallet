@@ -16,13 +16,13 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 import { COLORS, SIZES, FONTS, icons, images } from "../constants"
 
-const SignUp = ({ navigation }) => {
+const Login = ({ navigation }) => {
 
-    const [showPassword, setShowPassword] = React.useState(false)
-
-    const [areas, setAreas] = React.useState([])
-    const [selectedArea, setSelectedArea] = React.useState(null)
-    const [modalVisible, setModalVisible] = React.useState(false)
+    const [staShowPassword, setStaShowPassword] = React.useState(false)
+    const [staFullname, setStaFullname] = React.useState('')
+    const [staAreas, setStaAreas] = React.useState([])
+    const [staSelectedArea, setStaSelectedArea] = React.useState(null)
+    const [staModalVisible, setStaModalVisible] = React.useState(false)
 
     React.useEffect(() => {
         fetch("https://restcountries.eu/rest/v2/all")
@@ -32,18 +32,19 @@ const SignUp = ({ navigation }) => {
                     return {
                         code: item.alpha2Code,
                         name: item.name,
+                        region: item.region,
                         callingCode: `+${item.callingCodes[0]}`,
                         flag: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png`
                     }
                 })
 
-                setAreas(areaData)
+                setStaAreas(areaData)
 
                 if (areaData.length > 0) {
                     let defaultData = areaData.filter(a => a.code == "US")
 
                     if (defaultData.length > 0) {
-                        setSelectedArea(defaultData[0])
+                        setStaSelectedArea(defaultData[0])
                     }
                 }
             })
@@ -58,7 +59,7 @@ const SignUp = ({ navigation }) => {
                     marginTop: SIZES.padding * 6,
                     paddingHorizontal: SIZES.padding * 2
                 }}
-                onPress={() => console.log("Sign Up")}
+                onPress={() => alert("Dang ky")}
             >
                 <Image
                     source={icons.back}
@@ -70,7 +71,7 @@ const SignUp = ({ navigation }) => {
                     }}
                 />
 
-                <Text style={{ marginLeft: SIZES.padding * 1.5, color: COLORS.white, ...FONTS.h4 }}>Sign Up</Text>
+                <Text style={{ marginLeft: SIZES.padding * 1.5, color: COLORS.white, ...FONTS.h4 }}>Dang ky</Text>
             </TouchableOpacity>
         )
     }
@@ -104,9 +105,9 @@ const SignUp = ({ navigation }) => {
                     marginHorizontal: SIZES.padding * 3,
                 }}
             >
-                {/* Full Name */}
+                {/* Ho va ten */}
                 <View style={{ marginTop: SIZES.padding * 3 }}>
-                    <Text style={{ color: COLORS.lightGreen, ...FONTS.body3 }}>Full Name</Text>
+                    <Text style={{ color: COLORS.lightGreen, ...FONTS.body3 }}>Ho va ten</Text>
                     <TextInput
                         style={{
                             marginVertical: SIZES.padding,
@@ -116,15 +117,17 @@ const SignUp = ({ navigation }) => {
                             color: COLORS.white,
                             ...FONTS.body3
                         }}
-                        placeholder="Enter Full Name"
-                        placeholderTextColor={COLORS.white}
+                        placeholder="Nhap Ho va ten"
+                        placeholderTextColor={COLORS.darkGray}
                         selectionColor={COLORS.white}
+                        onChangeText={arg_fullname => setStaFullname(arg_fullname)}
+                        autoCapitalize='none'
                     />
                 </View>
 
-                {/* Phone Number */}
+                {/* so DT */}
                 <View style={{ marginTop: SIZES.padding * 2 }}>
-                    <Text style={{ color: COLORS.lightGreen, ...FONTS.body3 }}>Phone Number</Text>
+                    <Text style={{ color: COLORS.lightGreen, ...FONTS.body3 }}>so DT</Text>
 
                     <View style={{ flexDirection: 'row' }}>
                         {/* Country Code */}
@@ -138,7 +141,7 @@ const SignUp = ({ navigation }) => {
                                 flexDirection: 'row',
                                 ...FONTS.body2
                             }}
-                            onPress={() => setModalVisible(true)}
+                            onPress={() => setStaModalVisible(true)}
                         >
                             <View style={{ justifyContent: 'center' }}>
                                 <Image
@@ -152,7 +155,7 @@ const SignUp = ({ navigation }) => {
                             </View>
                             <View style={{ justifyContent: 'center', marginLeft: 5 }}>
                                 <Image
-                                    source={{ uri: selectedArea?.flag }}
+                                    source={{ uri: staSelectedArea?.flag }}
                                     resizeMode="contain"
                                     style={{
                                         width: 30,
@@ -162,11 +165,11 @@ const SignUp = ({ navigation }) => {
                             </View>
 
                             <View style={{ justifyContent: 'center', marginLeft: 5 }}>
-                                <Text style={{ color: COLORS.white, ...FONTS.body3 }}>{selectedArea?.callingCode}</Text>
+                                <Text style={{ color: COLORS.white, ...FONTS.body3 }}>{staSelectedArea?.callingCode}</Text>
                             </View>
                         </TouchableOpacity>
 
-                        {/* Phone Number */}
+                        {/* Nhap so DT */}
                         <TextInput
                             style={{
                                 flex: 1,
@@ -177,9 +180,10 @@ const SignUp = ({ navigation }) => {
                                 color: COLORS.white,
                                 ...FONTS.body3
                             }}
-                            placeholder="Enter Phone Number"
-                            placeholderTextColor={COLORS.white}
+                            placeholder="Nhap so DT"
+                            placeholderTextColor={COLORS.darkGray}
                             selectionColor={COLORS.white}
+                            keyboardType="numeric"
                         />
                     </View>
                 </View>
@@ -196,10 +200,10 @@ const SignUp = ({ navigation }) => {
                             color: COLORS.white,
                             ...FONTS.body3
                         }}
-                        placeholder="Enter Password"
-                        placeholderTextColor={COLORS.white}
+                        placeholder="Nhap Password"
+                        placeholderTextColor={COLORS.darkGray}
                         selectionColor={COLORS.white}
-                        secureTextEntry={!showPassword}
+                        secureTextEntry={!staShowPassword}
                     />
                     <TouchableOpacity
                         style={{
@@ -209,10 +213,10 @@ const SignUp = ({ navigation }) => {
                             height: 30,
                             width: 30
                         }}
-                        onPress={() => setShowPassword(!showPassword)}
+                        onPress={() => setStaShowPassword(!staShowPassword)}
                     >
                         <Image
-                            source={showPassword ? icons.disable_eye : icons.eye}
+                            source={staShowPassword ? icons.disable_eye : icons.eye}
                             style={{
                                 height: 20,
                                 width: 20,
@@ -223,6 +227,16 @@ const SignUp = ({ navigation }) => {
                 </View>
             </View>
         )
+    }
+
+    const _onPressDangnhap = () => {
+        if (staFullname) {
+            navigation.navigate("Home", {
+                navFullname: staFullname,
+            })
+        } else {
+            alert('Xin hay nhap Ho va ten!!!')
+        }
     }
 
     function renderButton() {
@@ -236,9 +250,9 @@ const SignUp = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => navigation.navigate("Home")}
+                    onPress={_onPressDangnhap}
                 >
-                    <Text style={{ color: COLORS.white, ...FONTS.h3 }}>Continue</Text>
+                    <Text style={{ color: COLORS.white, ...FONTS.h3 }}>Dang nhap</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -246,13 +260,13 @@ const SignUp = ({ navigation }) => {
 
     function renderAreaCodesModal() {
 
-        const renderItem = ({ item }) => {
+        const _onRenderItem = ({ item }) => {
             return (
                 <TouchableOpacity
                     style={{ padding: SIZES.padding, flexDirection: 'row' }}
                     onPress={() => {
-                        setSelectedArea(item)
-                        setModalVisible(false)
+                        setStaSelectedArea(item)
+                        setStaModalVisible(false)
                     }}
                 >
                     <Image
@@ -263,7 +277,8 @@ const SignUp = ({ navigation }) => {
                             marginRight: 10
                         }}
                     />
-                    <Text style={{ ...FONTS.body4 }}>{item.name}</Text>
+                    <Text style={{ ...FONTS.body5 }}>{item.name}</Text>
+                    <Text style={{ ...FONTS.body5 }}>  ({item.region})</Text>
                 </TouchableOpacity>
             )
         }
@@ -272,10 +287,10 @@ const SignUp = ({ navigation }) => {
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalVisible}
+                visible={staModalVisible}
             >
                 <TouchableWithoutFeedback
-                    onPress={() => setModalVisible(false)}
+                    onPress={() => setStaModalVisible(false)}
                 >
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                         <View
@@ -287,8 +302,8 @@ const SignUp = ({ navigation }) => {
                             }}
                         >
                             <FlatList
-                                data={areas}
-                                renderItem={renderItem}
+                                data={staAreas}
+                                renderItem={_onRenderItem}
                                 keyExtractor={(item) => item.code}
                                 showsVerticalScrollIndicator={false}
                                 style={{
@@ -324,4 +339,4 @@ const SignUp = ({ navigation }) => {
     )
 }
 
-export default SignUp;
+export default Login;
