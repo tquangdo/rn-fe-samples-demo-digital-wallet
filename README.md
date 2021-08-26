@@ -9,4 +9,8 @@
 scan bar code on `expo go` appstore
 
 ## demos app
-![structure](screenshots/structure.png)
+![1](screenshots/1.jpeg)
+*********************
+![2](screenshots/2.jpeg)
+*********************
+![3](screenshots/3.jpeg)
